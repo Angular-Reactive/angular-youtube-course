@@ -3,9 +3,7 @@ import { CommonModule } from '@angular/common';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { AppMaterialModule } from '@app/app-material/app-material.module';
 import { MenuItemComponent } from './components/navbar/menu-item/menu-item.component';
-
-
-
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -14,7 +12,8 @@ import { MenuItemComponent } from './components/navbar/menu-item/menu-item.compo
   ],
   imports: [
     CommonModule,
-    AppMaterialModule
+    AppMaterialModule,
+    RouterModule
   ],
   exports: [
     NavbarComponent
