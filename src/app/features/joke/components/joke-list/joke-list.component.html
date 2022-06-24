@@ -1,0 +1,22 @@
+<h4 #header>View Jokes</h4>
+<div class="row">
+    <div class="col-xs-12">
+        <button type="button"
+                class="btn btn-primary"
+                (click)="addJoke()">Add joke
+        </button>
+
+        <button type="button"
+            class="btn btn-danger"
+            (click)="deleteJokeEvent.emit($event)">Clear jokes
+        </button>
+    </div>
+</div>
+      
+<joke-item *ngFor="let j of jokes">
+    <span class="setup">{{ j.setup }}</span>
+    <h6 class="punchline">{{ j.punchline }}</h6>
+</joke-item>
+
+<h4>Content Jokes</h4>
+<ng-content></ng-content>

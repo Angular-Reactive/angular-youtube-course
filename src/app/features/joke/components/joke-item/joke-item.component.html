@@ -1,0 +1,9 @@
+<div class="card" [ccCardHover]="{ querySelector: 'p'}">
+    <div class="card-header">
+      <ng-content select=".setup"></ng-content>
+    </div>
+    <div class="card-body">
+      <p class="card-text" [style.display]="'none'">
+        <ng-content select=".punchline"></ng-content>
+    </div>  
+  </div>
