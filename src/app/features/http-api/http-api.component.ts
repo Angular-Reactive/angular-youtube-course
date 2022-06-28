@@ -1,4 +1,7 @@
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import * as R from 'ramda';
+
 
 @Component({
   selector: 'app-http-api',
@@ -8,13 +11,22 @@ import { Component, OnInit } from '@angular/core';
 export class HttpApiComponent implements OnInit {
 
   apiRoot: string = 'http://httpbin.org';
-  constructor() { }
+  
+  constructor(private http: HttpClient) { }
 
   ngOnInit(): void {
   }
 
   doGET() {
     console.log('GET');
+    
+    const url = `${this.apiRoot}/get`;
+    const params = new HttpParams()
+      .set('foo', 'moo')
+      .set('limit', '25');
+
+    this.http.get(url, {params})
+      .subscribe(response => console.log(response));
   }
 
   doPOST() {

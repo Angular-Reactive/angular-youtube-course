@@ -3,6 +3,9 @@ import { CommonModule } from '@angular/common';
 
 import { HttpApiRoutingModule } from './http-api-routing.module';
 import { HttpApiComponent } from './http-api.component';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { SharedModule } from '@app/shared/shared.module';
+import { AppMaterialModule } from '@app/app-material/app-material.module';
 
 
 @NgModule({
@@ -11,7 +14,9 @@ import { HttpApiComponent } from './http-api.component';
   ],
   imports: [
     CommonModule,
-    HttpApiRoutingModule
+    HttpApiRoutingModule,
+    SharedModule,
+    AppMaterialModule
   ]
 })
 export class HttpApiModule { }

@@ -1,29 +1,30 @@
-<div class="row">
-    <div class="m-t-1 m-l-1">
+<div class="container">
+    <div class="flex-container my-card" fxLayout="row" fxLayoutGap="20px">
         <button type="button" class="btn btn-sm btn-primary"
-            (click)="doGET()">GET</button>
-        <button type="button" class="btn btn-sm btn-primary"
-        (click)="doPOST()">POST</button>
-        <button type="button" class="btn btn-sm btn-primary"
-        (click)="doPUT()">PUT</button>
-        <button type="button" class="btn btn-sm btn-primary"
-        (click)="doDELETE()">DELETE</button>                     
-    </div>
-</div>
+                (click)="doGET()">GET</button>
 
-<div class="row">
-    <div class="m-t-1 m-l-1">
+        <button type="button" class="btn btn-sm btn-primary"
+            (click)="doPOST()">POST</button> 
+
+        <button type="button" class="btn btn-sm btn-primary"
+            (click)="doPUT()">PUT</button>  
+
+        <button type="button" class="btn btn-sm btn-primary"
+            (click)="doDELETE()">DELETE</button>     
+    </div>
+
+    <div class="flex-container  my-card" fxLayout="row" fxLayoutGap="20px">
         <button type="button" class="btn btn-sm btn-primary"
             (click)="doGETAsPromise()">As Promise</button>
-        <button type="button" class="btn btn-sm btn-primary"
-        (click)="doGETAsPromiseError()">Error as Promise</button>
-        <button type="button" class="btn btn-sm btn-primary"
-        (click)="doGETAsObservableError()">Error as Observable</button>       
-    </div>    
-</div>
 
-<div class="row">
-    <div class="m-t-1 m-l-1">
+        <button type="button" class="btn btn-sm btn-primary"
+            (click)="doGETAsPromiseError()">Error as Promise</button> 
+
+        <button type="button" class="btn btn-sm btn-primary"
+            (click)="doGETAsObservableError()">Error as Observable</button>     
+    </div>
+
+    <div class="flex-container  my-card" fxLayout="row" fxLayoutGap="20px">
         <button type="button" class="btn btn-sm btn-danger"
         (click)="doGETWithHeaders()">With Headers</button>
     </div>

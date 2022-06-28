@@ -29,7 +29,7 @@ export class NavBarAppService {
           {
             displayName: 'Setup & usage',
             iconName: 'settings',
-            route: 'http-setup'
+            route: 'http-api'
           },
           {
             displayName: 'HTTP with Promises',

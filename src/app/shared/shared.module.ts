@@ -4,6 +4,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CcCardHoverDirective } from './directives/cc-card-hover.directive';
 import { DefaultPipe } from './pipes/default.pipe';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import { DefaultPipe } from './pipes/default.pipe';
     CommonModule,
     HttpClientModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    FlexLayoutModule
   ],
   exports: [
     CommonModule,
@@ -23,7 +25,8 @@ import { DefaultPipe } from './pipes/default.pipe';
     FormsModule,
     ReactiveFormsModule,
     CcCardHoverDirective,
-    DefaultPipe
+    DefaultPipe,
+    FlexLayoutModule
   ]
 })
 export class SharedModule { }
