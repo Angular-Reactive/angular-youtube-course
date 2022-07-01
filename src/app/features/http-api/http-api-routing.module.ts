@@ -4,7 +4,7 @@ import { HttpApiComponent } from './http-api.component';
 
 const routes: Routes = [
   { 
-    path: 'httpapi', 
+    path: '', 
     children: [
       { 
         path: 'http-with-promises', 

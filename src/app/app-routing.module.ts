@@ -24,7 +24,7 @@ const routes: Routes = [
   { path: 'async-pipe', loadChildren: () => import('@features/async-pipe/async-pipe.module').then(m => m.AsyncPipeModule) },
   { path: 'custom-pipe', loadChildren: () => import('@features/default-pipe/default-pipe.module').then(m => m.DefaultPipeModule) },
   { path: 'providers', loadChildren: () => import('./features/providers/providers.module').then(m => m.ProvidersModule) },
-  { path: 'http-api', loadChildren: () => import('./features/http-api/http-api.module').then(m => m.HttpApiModule) },
+  { path: 'httpapi', loadChildren: () => import('./features/http-api/http-api.module').then(m => m.HttpApiModule) },
 ];
 
 @NgModule({

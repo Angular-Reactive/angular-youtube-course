@@ -26,11 +26,11 @@ export class NavBarAppService {
         displayName: 'HTTP',
         iconName: 'close',
         children: [
-          {
+/*           {
             displayName: 'Setup & usage',
             iconName: 'settings',
-            route: 'http-api'
-          },
+            route: 'httpapi'
+          }, */
           {
             displayName: 'HTTP with Promises',
             iconName: 'build',
