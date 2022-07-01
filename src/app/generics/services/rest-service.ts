@@ -3,8 +3,9 @@ import { catchError, map, Observable, of } from "rxjs";
 import { environment } from "src/environments/environment";
 import { ErrorCode } from "../models/api-error";
 import { ApiResponse } from "../models/api-response";
+import { BaseModel } from '../models/base-model';
 
-export class RestService<T> {
+export class RestService<T extends BaseModel> {
     httpOptions = {
         headers: new HttpHeaders({'Content-Type': 'application/json',
         'Accept': 'application/json'})
@@ -12,35 +13,53 @@ export class RestService<T> {
 
     private _apiEndPoint: string = environment.appRoot;
 
-    constructor(private _url: string,
-                private _http: HttpClient) {
+    constructor(private _http: HttpClient,
+                private _url: string,
+                private _endpoint: string) {
 
     }
 
     getAll(): Observable<ApiResponse<T>> {
         return this.mapAndCatchError(
-            this._http.get<ApiResponse<T>>(`${this._apiEndPoint + this._url}`, 
+            this._http.get<ApiResponse<T>>(`${this._url}/${this._endpoint}`, 
             this.httpOptions));
     }
 
-    get(id: number): Observable<ApiResponse<T>> {
+    get(): Observable<ApiResponse<T>> {
         return this.mapAndCatchError(
-            this._http.get<ApiResponse<T>>(`${this._apiEndPoint + this._url}/${id}`, 
+            this._http.get<ApiResponse<T>>(`${this._url}/${this._endpoint}`, 
             this.httpOptions));
     }
 
-    add(resource: T): Observable<ApiResponse<number>> {
+    getById(id: number): Observable<ApiResponse<T>> {
         return this.mapAndCatchError(
-            this._http.post<ApiResponse<number>>(`${this._apiEndPoint + this._url}`, 
-                resource, 
+            this._http.get<ApiResponse<T>>(`${this._url}/${this._endpoint}/${id}`, 
+            this.httpOptions));
+    }
+
+    create(resource: T): Observable<ApiResponse<number>> {
+        return this.mapAndCatchError(
+            this._http.post<ApiResponse<number>>(`${this._url}/${this._endpoint}`, 
+                JSON.stringify(resource), 
                 this.httpOptions));
     }
 
-    // update and remove here
+    update(resource: T): Observable<ApiResponse<number>> {
+        return this.mapAndCatchError(
+            this._http.put<ApiResponse<number>>(`${this._url}/${this._endpoint}/${resource.id}`, 
+                JSON.stringify(resource), 
+                this.httpOptions));
+    }
+
+    delete(resource: T): Observable<ApiResponse<number>> {
+        return this.mapAndCatchError(
+            this._http.delete<ApiResponse<number>>(`${this._url}/${this._endpoint}/${resource.id}`, 
+                this.httpOptions));
+    }
 
     // common method
     makeRequest<TData>(method: string, url: string, data: any) {
-        let finalUrl: string = `${this._apiEndPoint + url}`;
+        let finalUrl: string = `${url}`;
         let body: any = null;
 
         if(method.toUpperCase() == 'GET') {
@@ -62,7 +81,7 @@ export class RestService<T> {
         return response.pipe(
             map((resp: ApiResponse<TData>) => {
                 let result = new ApiResponse<TData>();
-                Object.assign(result, r);
+                Object.assign(result, resp);
                 
                 return result;
             }),
@@ -89,7 +108,7 @@ export class RestService<T> {
 
         for(let p in obj) {
             if(obj.hasOwnProperty(p)) {
-                str.push(encodeURIComponent(p) + '=' = encodeURIComponent(obj[p]));
+                str.push(encodeURIComponent(p) + '=' + encodeURIComponent(obj[p]));
             }
         }
 

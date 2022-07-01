@@ -12,4 +12,8 @@ export class HttpWithPromisesComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  doSearch(term: string) {
+    
+  }
+
 }
