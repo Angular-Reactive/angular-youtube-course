@@ -2,9 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { RestService } from '@app/generics/services/rest-service';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class SearchServiceService extends RestService<Object> {
 
   public apiRoot: string = 'https://itunes.apple.com/search';
