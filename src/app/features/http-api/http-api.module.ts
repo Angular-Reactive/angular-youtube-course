@@ -6,6 +6,7 @@ import { HttpApiComponent } from './http-api.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { SharedModule } from '@app/shared/shared.module';
 import { AppMaterialModule } from '@app/app-material/app-material.module';
+import { HttpWithPromisesModule } from '@features/http-api/dashboards/http-with-promises/http-with-promises.module';
 
 
 @NgModule({
@@ -16,7 +17,8 @@ import { AppMaterialModule } from '@app/app-material/app-material.module';
     CommonModule,
     HttpApiRoutingModule,
     SharedModule,
-    AppMaterialModule
+    AppMaterialModule,
+    HttpWithPromisesModule
   ]
 })
 export class HttpApiModule { }

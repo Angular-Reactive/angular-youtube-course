@@ -34,17 +34,17 @@ export class NavBarAppService {
           {
             displayName: 'HTTP with Promises',
             iconName: 'build',
-            route: 'what-up-web'
+            route: 'httpapi/http-with-promises'
           },
           {
             displayName: 'HTTP with Observables',
             iconName: 'local_offer',
-            route: 'my-ally-cli'
+            route: 'httpapi/http-with-observables'
           },
           {
             displayName: 'JSONP with Observables',
             iconName: 'panorama_fish_eye',
-            route: 'become-angular-tailer'
+            route: 'httpapi/jsonp-with-observables'
           }
         ]
       },
