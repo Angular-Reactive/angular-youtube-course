@@ -9,3 +9,22 @@
             class="btn btn-primary"
             (click)="doSearch(search.value)">Search</button>
 </form>
+
+<hr>
+
+<div class="text-center">
+    <p class="lead" *ngIf="iTunes.loading">Loading...</p>
+</div>
+
+<!-- <ul>
+    <li *ngFor="let track of itunes.tracks$ | async">
+        {{ track.trackName }}
+    </li>
+</ul> -->
+
+<ul class="list-group">
+    <li class="list-group-item" *ngFor="let track of iTunes.results">
+        <img src="{{ track.thumbnail }}">
+        <a target="_blank" href="{{ track.link }}">{{ track.name }}</a>
+    </li>
+</ul>

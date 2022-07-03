@@ -1,17 +1,29 @@
 import { HttpClient, HttpErrorResponse, HttpHeaders } from "@angular/common/http";
 import { catchError, map, Observable, of } from "rxjs";
-import { environment } from "src/environments/environment";
 import { ErrorCode } from "../models/api-error";
 import { ApiResponse } from "../models/api-response";
-import { BaseModel } from '../models/base-model';
 
-export class RestService<T extends BaseModel> {
+/**
+ * RestService<T> catches all errors and returns them within strongly typed ApiResponse<T>. 
+ * The calling code should check ApiResponse<T>.hasErrors() instead of catching errors 
+ * on Observable<T>.
+ * 
+ * Example:
+ * this._orderService.getAll().subscribe(res => {
+ *  if (!res.hasErrors()) {
+ *      // deal with res.data : Order[]
+ *  else {
+ *      this._messageService.showError(res.getErrorsText());
+ *  }
+ * });
+ * 
+ * ApiResponse<T> represents any server response.
+ */
+export class RestService<T extends Object> {
     httpOptions = {
         headers: new HttpHeaders({'Content-Type': 'application/json',
         'Accept': 'application/json'})
     };
-
-    private _apiEndPoint: string = environment.appRoot;
 
     constructor(private _http: HttpClient,
                 private _url: string,
@@ -19,24 +31,42 @@ export class RestService<T extends BaseModel> {
 
     }
 
+    /**
+     * To fetch all entities of type T.
+     * @returns Observable<ApiResponse<T>>
+     */
     getAll(): Observable<ApiResponse<T>> {
         return this.mapAndCatchError(
             this._http.get<ApiResponse<T>>(`${this._url}/${this._endpoint}`, 
             this.httpOptions));
     }
 
+    /**
+     * To fetch a single T entity without specifying id.
+     * @returns Observable<ApiResponse<T>> 
+     */
     get(): Observable<ApiResponse<T>> {
         return this.mapAndCatchError(
             this._http.get<ApiResponse<T>>(`${this._url}/${this._endpoint}`, 
             this.httpOptions));
     }
 
-    getById(id: number): Observable<ApiResponse<T>> {
+    /**
+     * To fetch a T entity by id.
+     * @param id 
+     * @returns Observable<ApiResponse<T>>
+     */
+    getById(id: any): Observable<ApiResponse<T>> {
         return this.mapAndCatchError(
             this._http.get<ApiResponse<T>>(`${this._url}/${this._endpoint}/${id}`, 
             this.httpOptions));
     }
 
+    /**
+     * To insert an ew T entity in the persistence layer.
+     * @param resource 
+     * @returns Observable<ApiResponse<number>>
+     */
     create(resource: T): Observable<ApiResponse<number>> {
         return this.mapAndCatchError(
             this._http.post<ApiResponse<number>>(`${this._url}/${this._endpoint}`, 
@@ -44,24 +74,46 @@ export class RestService<T extends BaseModel> {
                 this.httpOptions));
     }
 
-    update(resource: T): Observable<ApiResponse<number>> {
+    /**
+     * To update a T entity in the persistence layer
+     * @param resource 
+     * @param id 
+     * @returns Observable<ApiResponse<number>>
+     */
+    update(resource: T, id: any): Observable<ApiResponse<number>> {
         return this.mapAndCatchError(
-            this._http.put<ApiResponse<number>>(`${this._url}/${this._endpoint}/${resource.id}`, 
+            this._http.put<ApiResponse<number>>(`${this._url}/${this._endpoint}/${id}`, 
                 JSON.stringify(resource), 
                 this.httpOptions));
     }
 
-    delete(resource: T): Observable<ApiResponse<number>> {
+    /**
+     * To delete a T entity in the persistence layer.
+     * @param resource 
+     * @param id 
+     * @returns Observable<ApiResponse<number>>
+     */
+    delete(resource: T, id: any): Observable<ApiResponse<number>> {
         return this.mapAndCatchError(
-            this._http.delete<ApiResponse<number>>(`${this._url}/${this._endpoint}/${resource.id}`, 
+            this._http.delete<ApiResponse<number>>(`${this._url}/${this._endpoint}/${resource}`, 
                 this.httpOptions));
     }
 
-    // common method
+    // **********************************
+    // *         COMMON METHODS         *
+    // **********************************
+    
+    /**
+     * To make a custom request.
+     * @param method 
+     * @param url 
+     * @param data 
+     * @returns Observable<ApiResponse<TData>> 
+     */
     makeRequest<TData>(method: string, url: string, data: any) {
         let finalUrl: string = `${url}`;
         let body: any = null;
-
+        
         if(method.toUpperCase() == 'GET') {
             finalUrl += '?' + this.objectToQueryString(data);
         } else {
@@ -76,7 +128,15 @@ export class RestService<T extends BaseModel> {
         );
     }
 
-    // private methods
+    // **********************************
+    // *         PRIVATE METHODS        *
+    // **********************************
+    
+    /**
+     * 
+     * @param response 
+     * @returns 
+     */
     private mapAndCatchError<TData>(response: Observable<ApiResponse<TData>>): Observable<ApiResponse<TData>> {
         return response.pipe(
             map((resp: ApiResponse<TData>) => {
@@ -103,15 +163,14 @@ export class RestService<T extends BaseModel> {
         );
     } 
 
-    private objectToQueryString(obj: any): string {
+    private objectToQueryString(params: any): string {
         let str = [];
+        
 
-        for(let p in obj) {
-            if(obj.hasOwnProperty(p)) {
-                str.push(encodeURIComponent(p) + '=' + encodeURIComponent(obj[p]));
-            }
+        for(let key in params) {
+            str.push(encodeURIComponent(key) + '=' + encodeURIComponent(params[key]));
         }
-
+  
         return str.join('&');
     }
 }

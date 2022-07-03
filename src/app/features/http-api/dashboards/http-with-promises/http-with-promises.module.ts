@@ -3,7 +3,8 @@ import { NgModule } from '@angular/core';
 
 import { HttpWithPromisesRoutingModule } from './http-with-promises-routing.module';
 import { HttpWithPromisesComponent } from './http-with-promises.component';
-import { SearchServiceService } from './search-service.service';
+import { API_URL } from './http-with-promises.utils';
+import { SearchService } from './search-service.service';
 
 
 @NgModule({
@@ -15,7 +16,11 @@ import { SearchServiceService } from './search-service.service';
     HttpWithPromisesRoutingModule
   ],
   providers: [
-    SearchServiceService
+    SearchService,
+    {
+      provide: API_URL,
+      useValue: 'https://itunes.apple.com/search'
+    }
   ]
 })
 export class HttpWithPromisesModule { }
