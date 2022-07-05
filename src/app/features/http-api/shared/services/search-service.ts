@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
+import { AlertService } from '@app/core/components/alert/alert.service';
 import { RestService } from '@app/generics/services/rest-service';
 import * as R from 'ramda';
 import { map, Observable, tap } from 'rxjs';
@@ -15,9 +16,15 @@ export class SearchService extends RestService<TrackModelView> {
   public loading: boolean = false;
   public results: any [];
 
+  public options = {
+    autoClose: false,
+    keepAfterRouteChange: false
+  };
+
 
   constructor(private http: HttpClient,
-              @Inject(API_URL) private apiURL: string) { 
+              @Inject(API_URL) private apiURL: string,
+              private alertService: AlertService) { 
     super(http, apiURL, 'search');
     this.loading = false;
     this.results = [];
@@ -39,6 +46,8 @@ export class SearchService extends RestService<TrackModelView> {
           if(!resp.hasErrors) {
             this.loading = false;
             return R.map(responseData2TrackModelViewFn, R.path(['results'], resp));
+          } else {
+            this.alertService.error(resp.getErrorsText(), this.options);
           }
         })
       );   

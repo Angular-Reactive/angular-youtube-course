@@ -5,6 +5,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CcCardHoverDirective } from './directives/cc-card-hover.directive';
 import { DefaultPipe } from './pipes/default.pipe';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { AlertModule } from './components/alert/alert.module';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     HttpClientModule,
     ReactiveFormsModule,
     FormsModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    AlertModule
   ],
   exports: [
     CommonModule,
@@ -26,7 +28,8 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     ReactiveFormsModule,
     CcCardHoverDirective,
     DefaultPipe,
-    FlexLayoutModule
+    FlexLayoutModule,
+    AlertModule
   ]
 })
 export class SharedModule { }
