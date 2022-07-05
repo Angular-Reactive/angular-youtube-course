@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { HttpApiComponent } from './http-api.component';
 
 const routes: Routes = [
   { 
@@ -8,10 +7,14 @@ const routes: Routes = [
     children: [
       { 
         path: 'http-with-promises', 
-        loadChildren: () => import('./dashboards/http-with-promises/http-with-promises.module').then(m => m.HttpWithPromisesModule) 
-      }
+        loadChildren: () => import('./dashboards/http-with-promises/http-with-promises.module').then(m => m.HttpWithPromisesModule), 
+      },
+      { 
+        path: 'http-with-observables', 
+        loadChildren: () => import('./dashboards/http-with-observables/http-with-observables.module').then(m => m.HttpWithObservablesModule) 
+      }, 
     ] 
-  }, 
+  },
 ];
 
 @NgModule({

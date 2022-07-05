@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { SearchService } from './search-service.service';
+import { SearchService } from '../../shared/services/search-service';
 
 @Component({
   selector: 'app-http-with-promises',

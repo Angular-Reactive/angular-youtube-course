@@ -1,6 +1,6 @@
 import { InjectionToken } from '@angular/core';
 import * as R from 'ramda';
-import { TrackModelView } from './model/track-modelview';
+import { TrackModelView } from '../../shared/model/track-modelview';
 
 export const API_URL = new InjectionToken<string>('');
 
