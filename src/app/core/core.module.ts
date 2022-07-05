@@ -4,6 +4,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { AppMaterialModule } from '@app/app-material/app-material.module';
 import { MenuItemComponent } from './components/navbar/menu-item/menu-item.component';
 import { RouterModule } from '@angular/router';
+import { AlertModule } from './components/alert/alert.module';
 
 @NgModule({
   declarations: [
@@ -13,7 +14,8 @@ import { RouterModule } from '@angular/router';
   imports: [
     CommonModule,
     AppMaterialModule,
-    RouterModule
+    RouterModule,
+    AlertModule
   ],
   exports: [
     NavbarComponent
