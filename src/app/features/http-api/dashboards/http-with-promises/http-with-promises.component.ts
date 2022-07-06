@@ -14,6 +14,6 @@ export class HttpWithPromisesComponent implements OnInit {
   }
 
   doSearch(term: string) {
-    this.iTunes.doSearch(term);
+    this.iTunes.doSearchForPromise(term);
   }
 }
