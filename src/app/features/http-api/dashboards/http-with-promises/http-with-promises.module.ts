@@ -1,10 +1,10 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { SearchService } from '../../shared/services/search-service';
 
 import { HttpWithPromisesRoutingModule } from './http-with-promises-routing.module';
 import { HttpWithPromisesComponent } from './http-with-promises.component';
 import { API_URL } from './http-with-promises.utils';
-import { SearchService } from './search-service.service';
 
 
 @NgModule({

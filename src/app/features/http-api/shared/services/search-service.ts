@@ -1,11 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
-import { AlertService } from '@app/core/components/alert/alert.service';
 import { RestService } from '@app/generics/services/rest-service';
+import { AlertService } from '@app/shared/components/alert/alert.service';
 import * as R from 'ramda';
 import { map, Observable, tap } from 'rxjs';
 import { ApiResponse } from '../../../../generics/models/api-response';
-import { API_URL, responseData2TrackModelViewFn } from '../../dashboards/http-with-promises/http-with-promises.utils';
+import { ALERT_SERVICE, API_URL, responseData2TrackModelViewFn } from '../../dashboards/http-with-promises/http-with-promises.utils';
 import { TrackModelView } from '../model/track-modelview';
 
 
@@ -40,17 +40,23 @@ export class SearchService extends RestService<TrackModelView> {
 
     this.loading = true;
 //  
-    this.tracks$ = this.makeRequest('get', this.apiURL, params)
+    const tracks$ = this.makeRequest('get', this.apiURL, params)
       .pipe(
-        map((resp: ApiResponse<any>) => {
+/*         map((resp: ApiResponse<any>) => {
           if(!resp.hasErrors) {
+            console.log('No errors');
             this.loading = false;
             return R.map(responseData2TrackModelViewFn, R.path(['results'], resp));
           } else {
             this.alertService.error(resp.getErrorsText(), this.options);
+            return [];
           }
-        })
-      );   
+        }), */
+        map((resp: ApiResponse<any>) => R.map(responseData2TrackModelViewFn, R.path(['results'], resp))),
+        tap(val => console.log('VAL:', val))
+      ); 
+      
+      return tracks$;
   }
 }
 

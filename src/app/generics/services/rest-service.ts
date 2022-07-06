@@ -21,8 +21,11 @@ import { ApiResponse } from "../models/api-response";
  */
 export class RestService<T extends Object> {
     httpOptions = {
-        headers: new HttpHeaders({'Content-Type': 'application/json',
-        'Accept': 'application/json'})
+        headers: new HttpHeaders({
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+            'Access-Control-Allow-Origin': '*'
+        })
     };
 
     constructor(private _http: HttpClient,

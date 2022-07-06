@@ -4,11 +4,8 @@
         <input type="search"
                 class="form-control"
                 placeholder="Enter search string"
-                #search>
+                [formControl]="searchField">
     </div>
-    <button type="button"
-            class="btn btn-primary"
-            (click)="doSearch(search.value)">Search</button>
 </form>
 
 <hr>
