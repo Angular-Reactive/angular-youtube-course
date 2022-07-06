@@ -12,8 +12,6 @@ import { TrackModelView } from '../model/track-modelview';
 
 @Injectable()
 export class SearchService extends RestService<TrackModelView> {
-
-  public tracks$: Observable<TrackModelView []>;
   public loading: boolean = false;
   public errors$: Observable<string>;
   public results: TrackModelView[];

@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { SearchService } from '@features/http-api/shared/services/search-service';
-import { debounceTime, distinctUntilChanged, Subscription, switchMap } from 'rxjs';
+import { debounceTime, distinctUntilChanged, map, Observable, Subscription, switchMap } from 'rxjs';
 import { TrackModelView } from '../../shared/model/track-modelview';
 @Component({
   selector: 'app-http-with-observables',
@@ -10,7 +10,7 @@ import { TrackModelView } from '../../shared/model/track-modelview';
 })
 export class HttpWithObservablesComponent implements OnInit, OnDestroy {
 
-  public tracks$: TrackModelView [];
+  public tracks$: Observable<TrackModelView []>;
   private _searchField: FormControl;
   private searchSubscription: Subscription;
 
@@ -19,14 +19,11 @@ export class HttpWithObservablesComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this._searchField = new FormControl();
 
-    this.searchSubscription = this.searchField.valueChanges
+    this.tracks$ = this.searchField.valueChanges
     .pipe(
       debounceTime(400),
       distinctUntilChanged(),
-      switchMap( term => this.iTunes.doSearch(term)),
-    ).subscribe(res => {
-      this.tracks$ = res;
-    });
+      switchMap( term => this.iTunes.doSearch(term)));
   }
 
   ngOnDestroy(): void {
